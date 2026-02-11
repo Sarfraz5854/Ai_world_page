@@ -1,0 +1,145 @@
+# Ai_world_page
+“Welcome to AI World – Explore futuristic AI tools, courses, and products with interactive robotic guidance! Click the bubbles, hear the voice, and discover amazing AI resources. Perfect for tech enthusiasts and learners. Start your AI journey now!”
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI World Welcome</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .hero-container {
+    position: relative;
+    width: 80%;
+    max-width: 900px;
+    perspective: 1200px;
+  }
+
+  .hero-image {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+    transform-style: preserve-3d;
+    animation: floatRotate 8s ease-in-out infinite;
+    object-fit: cover;
+    filter: drop-shadow(0 0 30px rgba(255,255,255,0.2));
+    transition: box-shadow 0.5s ease;
+  }
+
+  .hero-image:hover {
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.6), 0 0 100px rgba(0, 255, 255, 0.3);
+  }
+
+  @keyframes floatRotate {
+    0% { transform: translateY(0px) rotateY(0deg) rotateX(0deg); }
+    25% { transform: translateY(-15px) rotateY(10deg) rotateX(5deg); }
+    50% { transform: translateY(0px) rotateY(0deg) rotateX(0deg); }
+    75% { transform: translateY(-15px) rotateY(-10deg) rotateX(-5deg); }
+    100% { transform: translateY(0px) rotateY(0deg) rotateX(0deg); }
+  }
+
+  .speech-bubble {
+    position: absolute;
+    top: 10%;
+    right: -25%;
+    background: rgba(255,255,255,0.95);
+    color: #111;
+    padding: 15px 25px;
+    border-radius: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.4);
+    opacity: 0;
+    transform: translateX(50px) rotate(-5deg);
+    transition: all 0.6s ease;
+    font-weight: bold;
+    max-width: 220px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .speech-bubble.show {
+    opacity: 1;
+    transform: translateX(0px) rotate(0deg);
+    animation: bubbleVibe 0.8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bubbleVibe {
+    0% { transform: translateX(0px) rotate(0deg); }
+    25% { transform: translateX(2px) rotate(1deg); }
+    50% { transform: translateX(-2px) rotate(-1deg); }
+    75% { transform: translateX(2px) rotate(1deg); }
+    100% { transform: translateX(0px) rotate(0deg); }
+  }
+
+  .speech-bubble a {
+    color: #0d6efd;
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero-container">
+  <img src="https://i.ibb.co/YBJY859f" alt="AI World" class="hero-image">
+
+  <div class="speech-bubble" id="bubble">
+    Welcome to AI World! <br>
+    <a href="https://www.example.com/affiliate" target="_blank">Check AI Tools!</a>
+  </div>
+</div>
+
+<script>
+  const bubble = document.getElementById('bubble');
+
+  const messages = [
+    'Welcome to AI World! <a href="https://www.example.com/affiliate" target="_blank">Check AI Tools!</a>',
+    'Hi there! 🤖 <a href="https://www.example.com/affiliate" target="_blank">Explore AI Courses</a>',
+    'Hello! Explore AI wonders! <a href="https://www.example.com/affiliate" target="_blank">AI Products</a>',
+    'Get ready for an amazing journey! <a href="https://www.example.com/affiliate" target="_blank">Join Now</a>',
+    'AI is the future! 🌐 <a href="https://www.example.com/affiliate" target="_blank">Learn More</a>'
+  ];
+
+  let index = 0;
+
+  function speakRobotic(text) {
+    const msg = new SpeechSynthesisUtterance(text.replace(/<[^>]*>/g, ''));
+    msg.rate = 0.9;
+    msg.pitch = 0.6;
+    msg.volume = 1;
+    window.speechSynthesis.speak(msg);
+  }
+
+  function showBubble(auto=true) {
+    bubble.innerHTML = messages[index];
+    bubble.classList.add('show');
+    if(auto) speakRobotic(messages[index]);
+
+    setTimeout(() => {
+      bubble.classList.remove('show');
+      index = (index + 1) % messages.length;
+    }, 4500);
+  }
+
+  showBubble();
+  setInterval(() => showBubble(true), 5000);
+
+  bubble.addEventListener('click', () => {
+    index = (index + 1) % messages.length;
+    showBubble(false);
+    speakRobotic(messages[index]);
+  });
+</script>
+
+</body>
+</html>
